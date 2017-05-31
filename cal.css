@@ -1,0 +1,18 @@
+
+.button{
+    -fx-background-color: dodgerblue;
+    -fx-border-color: darkorange;
+}
+
+.button:hover{
+    -fx-text-fill: cornsilk;
+}
+
+#op{
+    -fx-text-fill: floralwhite;
+}
+
+#op:hover {
+    -fx-text-fill: black;
+}
+

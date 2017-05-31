@@ -1,9 +1,12 @@
 package sample;
 
+import com.fathzer.soft.javaluator.DoubleEvaluator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
+
+import java.text.DecimalFormat;
 
 
 public class Controller {
@@ -63,17 +66,27 @@ public class Controller {
     private Button decimal;
 
     @FXML
+    private Button left;
+
+    @FXML
+    private Button right;
+
+    @FXML
     private Button percent;
 
 
-    double n1=0.0;
+    String expression = "";
 
-    double ans = 0.0;
+    DoubleEvaluator evaluator = new DoubleEvaluator();
+    
+    Double answer = 0.0;
 
-    int operation;
+    DecimalFormat round = new DecimalFormat("##.##########");
 
 
     public void click (ActionEvent event) throws Exception {
+
+
 
         if(event.getSource()==one) {
             display.setText(display.getText()+"1");
@@ -125,69 +138,40 @@ public class Controller {
         }
 
         else if(event.getSource()==add) {
-            n1 = Double.parseDouble(display.getText());
-            operation=1;
-            display.setText("");
+            display.setText(display.getText()+"+");
         }
 
         else if(event.getSource()==subtract) {
-            n1 = Double.parseDouble(display.getText());
-            operation=2;
-            display.setText("");
+            display.setText(display.getText()+"-");
         }
 
         else if(event.getSource()==multiply) {
-            n1 = Double.parseDouble(display.getText());
-            operation=3;
-            display.setText("");
+            display.setText(display.getText()+"*");
         }
 
         else if(event.getSource()==divide) {
-            n1 = Double.parseDouble(display.getText());
-            operation=4;
-            display.setText("");
+            display.setText(display.getText()+"/");
         }
 
         else if(event.getSource()==percent) {
-            n1 = Double.parseDouble(display.getText());
-            operation=5;
-            display.setText("");
+            display.setText(display.getText()+"%");
+        }
+
+        else if(event.getSource()==left) {
+            display.setText(display.getText()+"(");
+        }
+
+        else if(event.getSource()==right) {
+            display.setText(display.getText()+")");
         }
 
 
         else if(event.getSource()==equal) {
-            double n2 = Double.parseDouble(display.getText());
-
-
-            if(operation==1){
-                ans = n1+n2;
-            }
-
-            else if(operation==2){
-                ans = n1-n2;
-            }
-
-            else if(operation==3){
-                ans = n1*n2;
-            }
-
-            else if(operation==4) {
-                ans = n1 / n2;
-                display.setText("Error");
-
-            }
-
-            else if(operation==5) {
-                ans = (n1*n2)/100;
-                display.setText("Error");
-
-            }
-
-            display.setText(String.valueOf(ans));
+            expression = display.getText();
+            answer = new DoubleEvaluator().evaluate(expression);
+            display.setText(String.valueOf(round.format(answer)));
 
         }
-
-
 
 
     }
